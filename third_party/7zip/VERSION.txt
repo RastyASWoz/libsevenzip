@@ -1,0 +1,10 @@
+7-Zip Source Code
+Version: 25.01
+Downloaded: 2025-12-06
+Source: https://www.7-zip.org/
+License: LGPL + unRAR restriction
+
+Note: The original repository contains the top-level `C/`, `CPP/`, and `Asm/` directories.
+This project does not duplicate the full source here to avoid redundancy.
+To include the 7-Zip source in-tree, copy the existing `C/` and `CPP/` folders
+from the workspace root into `libsevenzip/third_party/7zip/`.

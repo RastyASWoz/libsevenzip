@@ -1,0 +1,12 @@
+# 统一换行符
+* text=auto eol=lf
+
+# Windows 批处理文件保持 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件
+*.7z binary
+*.zip binary
+*.png binary
+*.jpg binary
