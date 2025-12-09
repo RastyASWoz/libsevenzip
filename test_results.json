@@ -1,0 +1,1190 @@
+{
+  "tests": 108,
+  "failures": 0,
+  "disabled": 0,
+  "errors": 0,
+  "timestamp": "2025-12-08T15:42:59Z",
+  "time": "0.105s",
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "ErrorTest",
+      "tests": 12,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.002s",
+      "testsuite": [
+        {
+          "name": "ErrorCodeValues",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 15,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ErrorCategoryName",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 22,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ErrorCategoryMessage",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 27,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "MakeErrorCode",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 42,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ExceptionConstruction",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 53,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ExceptionThrow",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 58,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ExceptionInheritance",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 69,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "HResultToErrorCode",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 79,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "SzCheckHrMacroSuccess",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 100,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "SzCheckHrMacroFailure",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 106,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "SzCheckHrMsgMacro",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 118,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        },
+        {
+          "name": "ErrorCodeComparison",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_error.cpp",
+          "line": 130,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "ErrorTest"
+        }
+      ]
+    },
+    {
+      "name": "StringTest",
+      "tests": 23,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.005s",
+      "testsuite": [
+        {
+          "name": "Utf8ToWstringBasic",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 18,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "Utf8ToWstringEmpty",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 25,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "Utf8ToWstringChinese",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 32,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "Utf8ToWstringMixed",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 39,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "Utf8ToWstringSpecialChars",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 46,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "WstringToUtf8Basic",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 54,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "WstringToUtf8Empty",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 61,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "WstringToUtf8Chinese",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 68,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "WstringToUtf8Mixed",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 75,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "RoundTripConversion",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 83,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "RoundTripConversionWide",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 91,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "PathToWstring",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 100,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "WstringToPath",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 108,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "PathRoundTrip",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 115,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "BstrGuardConstruction",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 124,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "BstrGuardFromWstring",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 129,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "BstrGuardReset",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 139,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "BstrGuardDetach",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 154,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "BstrGuardMove",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 168,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "NullCharInString",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 186,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "VeryLongString",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 194,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "MultilineString",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 202,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        },
+        {
+          "name": "InvalidUtf8",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_string.cpp",
+          "line": 211,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "StringTest"
+        }
+      ]
+    },
+    {
+      "name": "PropVariantTest",
+      "tests": 25,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.005s",
+      "testsuite": [
+        {
+          "name": "GuardConstruction",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 18,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "GuardDestruction",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 26,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToWstringBasic",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 37,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToWstringEmpty",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 46,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToWstringChinese",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 53,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "WstringToProp",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 62,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToUint64",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 73,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToUint64Zero",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 82,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToUint64Max",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 91,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "Uint64ToProp",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 100,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToUint32",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 108,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "Uint32ToProp",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 117,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToBoolTrue",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 125,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToBoolFalse",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 134,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "BoolToProp",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 143,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "FiletimeToProp",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 155,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToFiletime",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 168,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "FiletimeToTimepoint",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 183,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "TimepointToFiletime",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 199,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "ClearMethod",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 212,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "MultipleAssignments",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 224,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "TypeMismatch",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 244,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "EmptyVariant",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 254,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToInt64Positive",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 264,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        },
+        {
+          "name": "PropToInt64Negative",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_propvariant.cpp",
+          "line": 278,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "PropVariantTest"
+        }
+      ]
+    },
+    {
+      "name": "FormatTest",
+      "tests": 25,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.006s",
+      "testsuite": [
+        {
+          "name": "FromExtensionBasic",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 19,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromExtensionCaseInsensitive",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 28,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromExtensionCompound",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 34,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromExtensionShortcuts",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 42,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromExtensionUnknown",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 49,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromExtensionRare",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 55,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignature7z",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 63,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureZip",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 68,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureGzip",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 73,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureBzip2",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 78,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureXz",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 83,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureRar",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 88,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureRar5",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 93,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureCab",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 98,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureUnknown",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 103,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromSignatureTooShort",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 108,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "GetFormatInfo7z",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 114,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "GetFormatInfoZip",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 126,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "GetFormatInfoUnknown",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 137,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "GetAllFormats",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 146,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "ToStringConversion",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 168,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromStringConversion",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 175,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromStringCaseInsensitive",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 182,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "FromStringUnknown",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 188,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        },
+        {
+          "name": "GetFormatName",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 194,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatTest"
+        }
+      ]
+    },
+    {
+      "name": "FormatDetectFileTest",
+      "tests": 4,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.004s",
+      "testsuite": [
+        {
+          "name": "Detect7z",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 219,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.001s",
+          "classname": "FormatDetectFileTest"
+        },
+        {
+          "name": "DetectZip",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 227,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatDetectFileTest"
+        },
+        {
+          "name": "DetectFallbackToExtension",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 235,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatDetectFileTest"
+        },
+        {
+          "name": "DetectNonexistentFile",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_format.cpp",
+          "line": 244,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FormatDetectFileTest"
+        }
+      ]
+    },
+    {
+      "name": "MemoryInStreamTest",
+      "tests": 7,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.001s",
+      "testsuite": [
+        {
+          "name": "ConstructFromBuffer",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 34,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "ReadData",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 41,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "ReadBeyondEnd",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 56,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "SeekSet",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 68,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "SeekCurrent",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 85,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "SeekEnd",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 105,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        },
+        {
+          "name": "GetSize",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 121,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryInStreamTest"
+        }
+      ]
+    },
+    {
+      "name": "MemoryOutStreamTest",
+      "tests": 5,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0s",
+      "testsuite": [
+        {
+          "name": "WriteData",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 133,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryOutStreamTest"
+        },
+        {
+          "name": "WriteMultipleTimes",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 149,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryOutStreamTest"
+        },
+        {
+          "name": "SeekAndWrite",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 165,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryOutStreamTest"
+        },
+        {
+          "name": "SetSize",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 181,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryOutStreamTest"
+        },
+        {
+          "name": "SetSizeLarger",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 190,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "MemoryOutStreamTest"
+        }
+      ]
+    },
+    {
+      "name": "FileInStreamTest",
+      "tests": 4,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.043s",
+      "testsuite": [
+        {
+          "name": "OpenNonexistentFile",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 201,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FileInStreamTest"
+        },
+        {
+          "name": "ReadFile",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 205,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.012s",
+          "classname": "FileInStreamTest"
+        },
+        {
+          "name": "GetFileSize",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 237,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.014s",
+          "classname": "FileInStreamTest"
+        },
+        {
+          "name": "SeekInFile",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 266,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.015s",
+          "classname": "FileInStreamTest"
+        }
+      ]
+    },
+    {
+      "name": "FileOutStreamTest",
+      "tests": 3,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "timestamp": "2025-12-08T15:42:59Z",
+      "time": "0.031s",
+      "testsuite": [
+        {
+          "name": "CreateAndWrite",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 305,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.014s",
+          "classname": "FileOutStreamTest"
+        },
+        {
+          "name": "SeekAndWrite",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 340,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0.015s",
+          "classname": "FileOutStreamTest"
+        },
+        {
+          "name": "SetSize",
+          "file": "D:\\code\\7z2501-src\\libsevenzip\\tests\\unit\\test_stream.cpp",
+          "line": 379,
+          "status": "RUN",
+          "result": "COMPLETED",
+          "timestamp": "2025-12-08T15:42:59Z",
+          "time": "0s",
+          "classname": "FileOutStreamTest"
+        }
+      ]
+    }
+  ]
+}

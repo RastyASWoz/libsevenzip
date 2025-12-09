@@ -1,0 +1,47 @@
+*** WinDbg 调试指令 ***
+
+1. 启动 WinDbg:
+   D:\littletools\WinDbg\windbg.exe -g -o D:\code\7z2501-src\libsevenzip\build\windows-debug\bin\Release\debug_password_crash.exe
+
+2. 在 WinDbg 命令窗口执行:
+
+   * 设置符号路径 (如果需要):
+     .sympath srv*c:\symbols*https://msdl.microsoft.com/download/symbols;D:\code\7z2501-src\libsevenzip\build\windows-debug\bin\Release
+     .reload
+
+   * 让程序运行直到崩溃:
+     g
+
+   * 崩溃后,查看详细调用栈:
+     k
+     kv
+     !analyze -v
+
+   * 查看崩溃点的代码:
+     u @rip
+     u @rip-20 L20
+
+   * 查看寄存器:
+     r
+
+   * 查看崩溃的异常信息:
+     .exr -1
+     .lastevent
+
+   * 查看具体的崩溃指令和访问的地址:
+     !error @lastError
+     dv
+
+   * 如果崩溃在我们的代码中,查看源代码:
+     lsa .
+
+3. 重点关注:
+   - 崩溃的准确位置 (模块!函数+偏移)
+   - 调用栈中哪些是 7-Zip 代码,哪些是包装层代码
+   - 崩溃指令试图访问的内存地址
+   - 如果是空指针/野指针访问,向上追溯看哪里传入了错误的指针
+
+4. 保存调试日志:
+   .logopen D:\code\7z2501-src\libsevenzip\windbg_crash_log.txt
+   (执行上述所有命令)
+   .logclose

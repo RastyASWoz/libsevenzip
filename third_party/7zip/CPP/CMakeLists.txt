@@ -36,6 +36,7 @@ sevenzip_add_if_exists(SEVENZIP_CPP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/Common/Wi
 # ============================================
 
 set(SEVENZIP_CPP_WINDOWS_SOURCES)
+sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/windows_globals.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/FileDir.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/FileFind.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/FileIO.cpp)
@@ -43,6 +44,7 @@ sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/FileName.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/PropVariant.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/PropVariantConv.cpp)
+sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/PropVariantUtils.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/Synchronization.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/System.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_WINDOWS_SOURCES ${SEVENZIP_CPP_DIR}/Windows/TimeUtils.cpp)
@@ -65,6 +67,7 @@ sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/MethodProps.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/OffsetStream.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/OutBuffer.cpp)
+sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/OutMemStream.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/ProgressMt.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/ProgressUtils.cpp)
 sevenzip_add_if_exists(SEVENZIP_CPP_7ZIP_COMMON_SOURCES ${SEVENZIP_CPP_DIR}/7zip/Common/PropId.cpp)
@@ -103,14 +106,25 @@ if(SEVENZIP_CPP_ALL_SOURCES)
 
     # 平台特定依赖
     if(WIN32)
-        target_compile_definitions(7zip_cpp PRIVATE _WIN32 WIN32)
+        target_compile_definitions(7zip_cpp PRIVATE 
+            _WIN32 
+            WIN32
+            _WIN32_WINNT=0x0601  # Windows 7+
+            NOMINMAX             # 防止Windows.h定义min/max宏
+            # 注意: 不定义WIN32_LEAN_AND_MEAN,因为7-Zip需要完整的COM支持(IUnknown等)
+        )
         target_link_libraries(7zip_cpp PRIVATE oleaut32 ole32 uuid)
     else()
         target_compile_definitions(7zip_cpp PRIVATE _UNIX)
     endif()
 
     if(MSVC)
-        target_compile_options(7zip_cpp PRIVATE /wd4100 /wd4244 /wd4267)
+        target_compile_options(7zip_cpp PRIVATE 
+            /wd4100    # 未引用的形参
+            /wd4244    # 类型转换,可能丢失数据
+            /wd4267    # size_t到int的转换
+            /FS        # 强制同步PDB写入
+        )
     else()
         target_compile_options(7zip_cpp PRIVATE -Wno-unused-parameter -Wno-sign-compare)
     endif()
@@ -122,4 +136,19 @@ else()
     target_include_directories(7zip_cpp INTERFACE ${SEVENZIP_CPP_DIR})
     add_library(SevenZip::CPP ALIAS 7zip_cpp)
 endif()
+
+# ============================================
+# Archive handlers (格式处理器)
+# ============================================
+add_subdirectory(7zip/Archive)
+
+# ============================================
+# Compression codecs (压缩编解码器)
+# ============================================
+add_subdirectory(7zip/Compress)
+
+# ============================================
+# Cryptography codecs (加密编解码器)
+# ============================================
+add_subdirectory(7zip/Crypto)
 

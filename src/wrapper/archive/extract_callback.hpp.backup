@@ -1,0 +1,114 @@
+// extract_callback.hpp - Extract callback implementation for 7-Zip
+#pragma once
+
+#include "7zip/Archive/IArchive.h"
+#include "7zip/IPassword.h"
+#include "Common/MyCom.h"
+#include "Common/MyString.h"
+#include "../stream/stream_file.hpp"
+#include "../stream/stream_memory.hpp"
+#include "../common/wrapper_error.hpp"
+
+#include <functional>
+#include <memory>
+#include <vector>
+#include <filesystem>
+
+namespace sevenzip::detail {
+
+// 提取进度回调
+using ExtractProgressCallback = std::function<bool(uint64_t completed, uint64_t total)>;
+
+// 提取到内存的回调
+class ExtractToMemoryCallback : 
+    public IArchiveExtractCallback,
+    public ICryptoGetTextPassword,
+    public CMyUnknownImp {
+public:
+    Z7_IFACES_IMP_UNK_2(IArchiveExtractCallback, ICryptoGetTextPassword)
+
+    explicit ExtractToMemoryCallback(
+        uint32_t index,
+        std::vector<uint8_t>& buffer,
+        const std::wstring& password = L"",
+        ExtractProgressCallback progressCallback = nullptr);
+
+    virtual ~ExtractToMemoryCallback() = default;
+
+    // ICryptoGetTextPassword
+    STDMETHOD(CryptoGetTextPassword)(BSTR* password) override;
+
+private:
+    uint32_t targetIndex_;
+    std::vector<uint8_t>& outputBuffer_;
+    std::wstring password_;
+    ExtractProgressCallback progressCallback_;
+    
+    CMyComPtr<ISequentialOutStream> currentOutStream_;
+    uint64_t totalSize_ = 0;
+    uint64_t completedSize_ = 0;
+};
+
+// 提取到文件的回调
+class ExtractToFileCallback :
+    public IArchiveExtractCallback,
+    public ICryptoGetTextPassword,
+    public CMyUnknownImp {
+public:
+    Z7_IFACES_IMP_UNK_2(IArchiveExtractCallback, ICryptoGetTextPassword)
+
+    explicit ExtractToFileCallback(
+        ::IInArchive* archive,
+        const std::filesystem::path& outputPath,
+        const std::wstring& password = L"",
+        ExtractProgressCallback progressCallback = nullptr);
+
+    virtual ~ExtractToFileCallback() = default;
+
+    // ICryptoGetTextPassword
+    STDMETHOD(CryptoGetTextPassword)(BSTR* password) override;
+
+private:
+    ::IInArchive* archive_;
+    std::filesystem::path outputPath_;
+    std::wstring password_;
+    ExtractProgressCallback progressCallback_;
+    
+    CMyComPtr<ISequentialOutStream> currentOutStream_;
+    uint64_t totalSize_ = 0;
+    uint64_t completedSize_ = 0;
+};
+
+// 提取多个文件到目录的回调
+class ExtractToDirectoryCallback :
+    public IArchiveExtractCallback,
+    public ICryptoGetTextPassword,
+    public CMyUnknownImp {
+public:
+    Z7_IFACES_IMP_UNK_2(IArchiveExtractCallback, ICryptoGetTextPassword)
+
+    explicit ExtractToDirectoryCallback(
+        ::IInArchive* archive,
+        const std::filesystem::path& outputDir,
+        const std::wstring& password = L"",
+        ExtractProgressCallback progressCallback = nullptr);
+
+    virtual ~ExtractToDirectoryCallback() = default;
+
+    // ICryptoGetTextPassword
+    STDMETHOD(CryptoGetTextPassword)(BSTR* password) override;
+
+private:
+    ::IInArchive* archive_;
+    std::filesystem::path outputDir_;
+    std::wstring password_;
+    ExtractProgressCallback progressCallback_;
+    
+    CMyComPtr<ISequentialOutStream> currentOutStream_;
+    std::filesystem::path currentFilePath_;
+    uint64_t totalSize_ = 0;
+    uint64_t completedSize_ = 0;
+    uint32_t currentIndex_ = 0;
+};
+
+}  // namespace sevenzip::detail

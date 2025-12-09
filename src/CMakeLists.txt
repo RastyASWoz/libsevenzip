@@ -34,6 +34,10 @@ if(SEVENZIP_BUILD_SHARED)
         PRIVATE
             SevenZip::CPP
             SevenZip::C
+            7zip_cpp
+            7zip_archive
+            7zip_codec
+            7zip_crypto
     )
     
     set_target_properties(sevenzip_shared PROPERTIES

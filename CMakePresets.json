@@ -18,8 +18,10 @@
             "displayName": "Windows Debug",
             "generator": "Visual Studio 17 2022",
             "architecture": "x64",
+            "toolchainFile": "D:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
             },
             "condition": {
                 "type": "equals",

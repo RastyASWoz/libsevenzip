@@ -1,10 +1,30 @@
 cmake_minimum_required(VERSION 3.20)
 
+# ============================================
+# Windows SDK 版本控制 (必须在 project() 之前)
+# ============================================
+if(WIN32)
+    # 强制使用 Windows SDK 10.0.19041.0 (Windows 10 SDK)
+    # 原因: SDK 10.0.26100.0 (Windows 11) 与 7-Zip COM 接口不兼容
+    set(CMAKE_SYSTEM_VERSION "10.0.19041.0" CACHE STRING "Windows SDK version for 7-Zip compatibility" FORCE)
+    message(STATUS "Forcing Windows SDK: ${CMAKE_SYSTEM_VERSION}")
+endif()
+
 project(libsevenzip
     VERSION 0.1.0
     DESCRIPTION "Modern C++ wrapper for 7-Zip"
     LANGUAGES C CXX
 )
+
+# ============================================
+# vcpkg 配置
+# ============================================
+
+if(EXISTS "D:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(CMAKE_TOOLCHAIN_FILE "D:/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
+    message(STATUS "Using vcpkg toolchain: ${CMAKE_TOOLCHAIN_FILE}")
+endif()
 
 # ============================================
 # 全局设置
