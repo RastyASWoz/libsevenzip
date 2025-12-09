@@ -4,13 +4,25 @@ A cross-platform, modern C++ wrapper around the 7-Zip library, providing a clean
 
 ## Status
 
-**✅ PRODUCTION READY** - All core features implemented and tested.
+**✅ PRODUCTION READY** - Core features implemented and tested.
 
-- **Test Coverage**: 162/162 tests passing (100%)
-- **ArchiveReader**: Fully implemented (134 tests, 100%)
-- **ArchiveWriter**: Fully implemented (28 tests, 100%)
-  - All tests passing including password support and various compression levels
-- **C API**: Planned (not yet implemented)
+### Implementation Progress
+
+| Layer | Status | Tests | Coverage |
+|-------|--------|-------|----------|
+| **COM Wrapper** | ✅ Complete | 162/162 | 100% |
+| **C++ API** | ✅ Complete | 354/354 | ~95% |
+| **C ABI (FFI)** | 🚧 In Progress | - | - |
+
+- **COM Wrapper Layer**: Fully implemented (162 tests, 100%)
+  - ArchiveReader: 134 tests
+  - ArchiveWriter: 28 tests
+- **Modern C++ API**: Fully implemented (354 tests, 100%)
+  - Archive, ArchiveReader, ArchiveWriter classes
+  - Compressor class for standalone compression
+  - Convenience functions
+  - Memory operations support
+- **C FFI Layer**: Design phase (see [docs/design/Stage4_FFI_Design.md](docs/design/Stage4_FFI_Design.md))
 
 ## Quick Start
 
@@ -25,7 +37,59 @@ ctest -C Release
 
 ### Basic Usage
 
-**Reading Archives**:
+#### Modern C++ API (Recommended)
+
+**Simple Operations**:
+```cpp
+#include <sevenzip/convenience.hpp>
+
+// One-line extract
+sevenzip::extract("archive.7z", "output/");
+
+// One-line compress
+sevenzip::compress("folder/", "archive.7z");
+```
+
+**Advanced Usage**:
+```cpp
+#include <sevenzip/archive.hpp>
+
+using namespace sevenzip;
+
+// Create archive with configuration
+Archive::create("archive.7z")
+    .withCompressionLevel(CompressionLevel::Maximum)
+    .withSolidMode(true)
+    .addFile("file.txt")
+    .addDirectory("folder/", true)
+    .finalize();
+
+// Read and iterate
+auto archive = Archive::open("archive.7z");
+for (const auto& item : archive) {
+    std::cout << item.path << " - " << item.size << " bytes\n";
+}
+archive.extractAll("output/");
+```
+
+**Memory Operations**:
+```cpp
+#include <sevenzip/archive.hpp>
+
+// Create archive in memory
+std::vector<uint8_t> buffer;
+Archive::createToMemory(buffer)
+    .addFromMemory(data, "file.bin")
+    .finalize();
+
+// Open from memory
+auto archive = Archive::openFromMemory(buffer);
+auto extracted = archive.extractItemToMemory(0);
+```
+
+#### Low-Level COM Wrapper API
+
+For advanced use cases requiring direct COM control:
 ```cpp
 #include "wrapper/archive/archive_reader.hpp"
 
@@ -34,37 +98,8 @@ using namespace sevenzip::wrapper;
 ArchiveReader reader;
 reader.open(L"archive.7z");
 
-// List contents
-for (uint32_t i = 0; i < reader.getItemCount(); i++) {
-    auto info = reader.getItemInfo(i);
-    std::wcout << info.path << L" - " << info.size << L" bytes\n";
-}
-
-// Extract all
+// Extract with detailed control
 reader.extractAll(L"output_directory");
-```
-
-**Creating Archives**:
-```cpp
-#include "wrapper/archive/archive_writer.hpp"
-
-using namespace sevenzip::wrapper;
-
-ArchiveWriter writer;
-writer.create(L"new_archive.7z", ArchiveFormat::SevenZip);
-
-// Add files
-writer.addFile(L"C:\\path\\to\\file.txt", L"file.txt");
-writer.addDirectory(L"C:\\my_folder", L"folder", true);  // recursive
-
-// Configure compression
-ArchiveProperties props;
-props.level = CompressionLevel::Ultra;
-props.method = CompressionMethod::LZMA2;
-props.numThreads = 4;
-writer.setProperties(props);
-
-writer.finalize();
 ```
 
 ## Features

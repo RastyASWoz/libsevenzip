@@ -49,43 +49,135 @@ target_compile_features(wrapper_unit_tests PRIVATE cxx_std_17)
 # Add test to CTest
 add_test(NAME WrapperUnitTests COMMAND wrapper_unit_tests)
 
-# Debug test executable for CompressionLevel::None issue
-add_executable(debug_compression_none
-    ${CMAKE_SOURCE_DIR}/tests/debug_compression_none.cpp
+# Debug executables removed (were: debug_compression_none, debug_password_crash)
+
+# Stage 3 Modern C++ API tests
+add_executable(test_archive
+    test_archive.cpp
 )
 
-target_link_libraries(debug_compression_none
+target_link_libraries(test_archive
     PRIVATE
+        sevenzip_api
         sevenzip_wrapper
         7zip_cpp
+        GTest::gtest
+        GTest::gtest_main
 )
 
-target_include_directories(debug_compression_none
+target_include_directories(test_archive
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/third_party/7zip/CPP
 )
 
-target_compile_features(debug_compression_none PRIVATE cxx_std_17)
+target_compile_features(test_archive PRIVATE cxx_std_17)
 
-# Debug test executable for password + file crash
-add_executable(debug_password_crash
-    ${CMAKE_SOURCE_DIR}/tests/debug_password_crash.cpp
+gtest_discover_tests(test_archive)
+add_test(NAME ArchiveAPITests COMMAND test_archive)
+
+# Convenience functions tests
+add_executable(test_convenience
+    test_convenience.cpp
 )
 
-target_link_libraries(debug_password_crash
+target_link_libraries(test_convenience
     PRIVATE
+        sevenzip_api
         sevenzip_wrapper
         7zip_cpp
+        GTest::gtest
+        GTest::gtest_main
 )
 
-target_include_directories(debug_password_crash
+target_include_directories(test_convenience
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/include
         ${CMAKE_SOURCE_DIR}/third_party/7zip/CPP
 )
 
-target_compile_features(debug_password_crash PRIVATE cxx_std_17)
+target_compile_features(test_convenience PRIVATE cxx_std_17)
+
+gtest_discover_tests(test_convenience)
+add_test(NAME ConvenienceFunctionsTests COMMAND test_convenience)
+
+# Compressor class tests
+add_executable(test_compressor
+    test_compressor.cpp
+)
+
+target_link_libraries(test_compressor
+    PRIVATE
+        sevenzip_api
+        sevenzip_wrapper
+        7zip_cpp
+        GTest::gtest
+        GTest::gtest_main
+)
+
+target_include_directories(test_compressor
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/third_party/7zip/CPP
+)
+
+target_compile_features(test_compressor PRIVATE cxx_std_17)
+
+gtest_discover_tests(test_compressor)
+add_test(NAME CompressorTests COMMAND test_compressor)
+
+# ArchiveReader API tests
+add_executable(test_archive_reader_api
+    test_archive_reader_api.cpp
+)
+
+target_link_libraries(test_archive_reader_api
+    PRIVATE
+        sevenzip_api
+        sevenzip_wrapper
+        7zip_cpp
+        GTest::gtest
+        GTest::gtest_main
+)
+
+target_include_directories(test_archive_reader_api
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/third_party/7zip/CPP
+)
+
+target_compile_features(test_archive_reader_api PRIVATE cxx_std_17)
+
+gtest_discover_tests(test_archive_reader_api)
+add_test(NAME ArchiveReaderAPITests COMMAND test_archive_reader_api)
+
+# ArchiveWriter API tests
+add_executable(test_archive_writer_api
+    test_archive_writer_api.cpp
+)
+
+target_link_libraries(test_archive_writer_api
+    PRIVATE
+        sevenzip_api
+        sevenzip_wrapper
+        7zip_cpp
+        GTest::gtest
+        GTest::gtest_main
+)
+
+target_include_directories(test_archive_writer_api
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/third_party/7zip/CPP
+)
+
+target_compile_features(test_archive_writer_api PRIVATE cxx_std_17)
+
+gtest_discover_tests(test_archive_writer_api)
+add_test(NAME ArchiveWriterAPITests COMMAND test_archive_writer_api)
 

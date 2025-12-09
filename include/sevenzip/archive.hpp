@@ -13,6 +13,8 @@
 namespace sevenzip {
 
 // 前向声明
+enum class ErrorCode;  // 完整定义在wrapper层
+class Exception;       // 完整定义在wrapper层
 class ItemIterator;
 class Archive;
 
@@ -138,6 +140,13 @@ class Archive {
     /// @return Archive对象，可进行解压等操作
     /// @throws Exception 如果数据无效
     static Archive openFromMemory(const std::vector<uint8_t>& buffer);
+
+    /// 从内存缓冲区打开归档（指定格式）
+    /// @param buffer 包含归档数据的缓冲区
+    /// @param format 归档格式
+    /// @return Archive对象，可进行解压等操作
+    /// @throws Exception 如果数据无效或格式不支持
+    static Archive openFromMemory(const std::vector<uint8_t>& buffer, Format format);
 
     // ========================================================================
     // 构造/析构/移动
