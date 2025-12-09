@@ -111,6 +111,9 @@ static GUID GetFormatCLSID(ArchiveFormat format) {
         case ArchiveFormat::BZip2:
             base.Data4[5] = 0x02;  // '02'
             break;
+        case ArchiveFormat::Xz:
+            base.Data4[5] = 0x0C;  // '0c'
+            break;
         case ArchiveFormat::Rar:
             base.Data4[5] = 0x03;  // '03'
             break;
@@ -322,6 +325,14 @@ ArchiveInfo ArchiveReader::getArchiveInfo() const {
 ArchiveItemInfo ArchiveReader::getItemInfo(uint32_t index) const {
     if (!impl_->isOpen) {
         throw Exception(ErrorCode::InvalidHandle, "Archive not open");
+    }
+
+    // 边界检查：防止访问无效索引
+    uint32_t itemCount = getItemCount();
+    if (index >= itemCount) {
+        throw Exception(ErrorCode::InvalidArgument,
+                        "Index out of range: " + std::to_string(index) +
+                            " (item count: " + std::to_string(itemCount) + ")");
     }
 
     ArchiveItemInfo info;

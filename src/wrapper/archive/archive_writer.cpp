@@ -12,6 +12,7 @@
 
 #include "../common/wrapper_string.hpp"
 #include "../stream/stream_file.hpp"
+#include "../stream/stream_memory.hpp"
 #include "archive_format.hpp"
 #include "archive_init.hpp"
 #include "update_callback.hpp"
@@ -44,6 +45,9 @@ static GUID GetFormatCLSID(ArchiveFormat format) {
         case ArchiveFormat::BZip2:
             base.Data4[5] = 0x02;  // '02'
             break;
+        case ArchiveFormat::Xz:
+            base.Data4[5] = 0x0C;  // '0c'
+            break;
         case ArchiveFormat::Rar:
             base.Data4[5] = 0x03;  // '03'
             break;
@@ -61,6 +65,7 @@ class ArchiveWriter::Impl {
     ~Impl() = default;
 
     void create(const std::wstring& path, ArchiveFormat format);
+    void createToMemory(std::vector<uint8_t>& buffer, ArchiveFormat format);
     void createToStream(::IOutStream* stream, ArchiveFormat format);
     void setProperties(const ArchiveProperties& props);
     void close();
@@ -117,6 +122,10 @@ ArchiveWriter& ArchiveWriter::operator=(ArchiveWriter&&) noexcept = default;
 
 void ArchiveWriter::create(const std::wstring& path, ArchiveFormat format) {
     impl_->create(path, format);
+}
+
+void ArchiveWriter::createToMemory(std::vector<uint8_t>& buffer, ArchiveFormat format) {
+    impl_->createToMemory(buffer, format);
 }
 
 void ArchiveWriter::createToStream(::IOutStream* stream, ArchiveFormat format) {
@@ -190,6 +199,24 @@ void ArchiveWriter::Impl::create(const std::wstring& path, ArchiveFormat format)
     } catch (...) {
         throw Exception(ErrorCode::CannotOpenFile,
                         "Cannot create output file: " + std::string(path.begin(), path.end()));
+    }
+
+    ensureFormat();
+}
+
+void ArchiveWriter::Impl::createToMemory(std::vector<uint8_t>& buffer, ArchiveFormat format) {
+    if (finalized_) {
+        throw Exception(ErrorCode::InvalidState, "Archive already finalized");
+    }
+
+    format_ = format;
+
+    // Create memory output stream
+    try {
+        auto memStream = new MemoryOutStream(buffer);
+        outStream_ = memStream;
+    } catch (...) {
+        throw Exception(ErrorCode::OutOfMemory, "Cannot create memory stream");
     }
 
     ensureFormat();

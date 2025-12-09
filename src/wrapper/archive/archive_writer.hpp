@@ -113,6 +113,12 @@ class ArchiveWriter {
     // 创建新归档（指定格式）
     void create(const std::wstring& path, ArchiveFormat format);
 
+    // 创建归档到内存缓冲区
+    void createToMemory(std::vector<uint8_t>& buffer, ArchiveFormat format);
+
+    // 打开现有归档进行更新（会保留现有文件）
+    void openForUpdate(const std::wstring& path);
+
     // 从流创建归档
     void createToStream(::IOutStream* stream, ArchiveFormat format);
 
@@ -137,6 +143,9 @@ class ArchiveWriter {
 
     // 添加自定义项目
     void addItem(const UpdateItemInfo& item);
+
+    // 从现有归档中删除文件（仅在 openForUpdate 后可用）
+    void removeFile(const std::wstring& archivePath);
 
     // 批量添加项目并写入归档（必须在所有addXxx调用后调用）
     void finalize();

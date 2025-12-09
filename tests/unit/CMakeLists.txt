@@ -13,6 +13,11 @@ add_executable(wrapper_unit_tests
     test_archive_reader.cpp
     test_extraction.cpp
     test_archive_writer.cpp
+    test_gzip_bzip2_xz.cpp
+    test_edge_cases.cpp
+    test_concurrency.cpp
+    test_stress.cpp
+    test_integration.cpp
     # Password debug tests removed - password+files functionality has known limitations
     # test_password_debug.cpp
     # test_password_minimal.cpp
