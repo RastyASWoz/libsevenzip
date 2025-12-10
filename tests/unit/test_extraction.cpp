@@ -35,7 +35,9 @@ TEST_F(ExtractionTest, ExtractToMemoryBasic) {
 
     // 验证数据内容（test.7z中第一个文件内容，可能带UTF-8 BOM）
     std::string content(data.begin(), data.end());
-    std::string expected = "This is test file 1\nWith multiple lines\nFor archive testing\r\n";
+    // Windows平台文件使用\r\n换行
+    std::string expected =
+        "This is test file 1\r\nWith multiple lines\r\nFor archive testing\r\r\n";
 
     // 如果有UTF-8 BOM (EF BB BF)，去掉它
     if (content.size() >= 3 && static_cast<unsigned char>(content[0]) == 0xEF &&
@@ -81,7 +83,9 @@ TEST_F(ExtractionTest, ExtractToFileBasic) {
         std::string content((std::istreambuf_iterator<char>(file)),
                             std::istreambuf_iterator<char>());
 
-        std::string expected = "This is test file 1\nWith multiple lines\nFor archive testing\r\n";
+        // Windows平台文件使用\r\n换行
+        std::string expected =
+            "This is test file 1\r\nWith multiple lines\r\nFor archive testing\r\r\n";
 
         // 如果有UTF-8 BOM (EF BB BF)，去掉它
         if (content.size() >= 3 && static_cast<unsigned char>(content[0]) == 0xEF &&

@@ -20,7 +20,24 @@ target_include_directories(convenience_demo
 
 target_compile_features(convenience_demo PRIVATE cxx_std_17)
 
+# C API basic usage example
+add_executable(example_basic_usage
+    example_basic_usage.c
+)
+
+target_link_libraries(example_basic_usage
+    PRIVATE
+        sevenzip_ffi
+)
+
+target_include_directories(example_basic_usage
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+)
+
+target_compile_definitions(example_basic_usage PRIVATE SEVENZIP_STATIC)
+
 # Install examples
-install(TARGETS convenience_demo
+install(TARGETS convenience_demo example_basic_usage
     RUNTIME DESTINATION bin/examples
 )

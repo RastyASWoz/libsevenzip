@@ -1,27 +1,50 @@
+/**
+ * @file sevenzip_capi.h
+ * @brief 7-Zip C API - Main Include File
+ * @version 1.0.0
+ *
+ * This is the main header file for the 7-Zip C API.
+ * Include this file to access all C API functionality.
+ *
+ * @example
+ * @code
+ * #include <sevenzip/sevenzip_capi.h>
+ *
+ * int main() {
+ *     // Simple extraction
+ *     sz_result result = sz_extract_simple("archive.7z", "output/");
+ *     if (result != SZ_OK) {
+ *         printf("Error: %s\n", sz_get_last_error_message());
+ *         return 1;
+ *     }
+ *     return 0;
+ * }
+ * @endcode
+ */
+
 #ifndef SEVENZIP_CAPI_H
 #define SEVENZIP_CAPI_H
 
-/**
- * @file sevenzip_capi.h
- * @brief C API for libsevenzip - FFI friendly interface
- */
+/* Core types and definitions */
+#include "sz_types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/* Error handling */
+#include "sz_error.h"
 
-#define SEVENZIP_API_VERSION 1
+/* Archive reading */
+#include "sz_archive.h"
 
-/* Error codes will be defined here */
-typedef int sz_result_t;
+/* Archive writing */
+#include "sz_writer.h"
 
-#define SZ_OK 0
-#define SZ_ERROR_UNKNOWN -1
+/* Standalone compression - NOT IMPLEMENTED */
+/* Use standard libraries (zlib, bzip2, liblzma) for standalone compression */
+/* #include "sz_compress.h" */
 
-/* Opaque handles will be defined here */
+/* Convenience functions */
+#include "sz_convenience.h"
 
-#ifdef __cplusplus
-}
-#endif
+/* Version information */
+#include "sz_version.h"
 
 #endif /* SEVENZIP_CAPI_H */

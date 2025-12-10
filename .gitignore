@@ -35,3 +35,5 @@ coverage/
 
 /docs/
 /tests/data/
+
+test_results.json

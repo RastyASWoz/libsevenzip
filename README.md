@@ -12,17 +12,21 @@ A cross-platform, modern C++ wrapper around the 7-Zip library, providing a clean
 |-------|--------|-------|----------|
 | **COM Wrapper** | ✅ Complete | 162/162 | 100% |
 | **C++ API** | ✅ Complete | 354/354 | ~95% |
-| **C ABI (FFI)** | 🚧 In Progress | - | - |
+| **C ABI (FFI)** | ✅ Complete | 28/28 | ~85% |
 
 - **COM Wrapper Layer**: Fully implemented (162 tests, 100%)
   - ArchiveReader: 134 tests
   - ArchiveWriter: 28 tests
 - **Modern C++ API**: Fully implemented (354 tests, 100%)
   - Archive, ArchiveReader, ArchiveWriter classes
-  - Compressor class for standalone compression
   - Convenience functions
   - Memory operations support
-- **C FFI Layer**: Design phase (see [docs/design/Stage4_FFI_Design.md](docs/design/Stage4_FFI_Design.md))
+  - **Note**: Standalone compression (Compressor class) removed - use standard libraries (see [docs/Standalone_Compression_Guide.md](docs/Standalone_Compression_Guide.md))
+- **C FFI Layer**: Fully implemented (28 C tests, ~85% coverage)
+  - 50+ C API functions across 8 header files
+  - Python bindings example (ctypes)
+  - Thread-safe error handling
+  - Complete documentation (see [src/ffi/README.md](src/ffi/README.md))
 
 ## Quick Start
 
@@ -86,6 +90,47 @@ Archive::createToMemory(buffer)
 auto archive = Archive::openFromMemory(buffer);
 auto extracted = archive.extractItemToMemory(0);
 ```
+
+#### C API (FFI Layer)
+
+For language bindings and C projects:
+```c
+#include "sevenzip/sevenzip_capi.h"
+
+// Simple extraction
+sz_result result = sz_extract_simple("archive.7z", "output/");
+if (result != SZ_OK) {
+    printf("Error: %s\n", sz_get_last_error_message());
+}
+
+// Advanced usage
+sz_archive_handle archive;
+sz_archive_open("archive.7z", &archive);
+sz_archive_extract_all(archive, "output/", NULL, NULL);
+sz_archive_close(archive);
+```
+
+See [src/ffi/README.md](src/ffi/README.md) for complete C API documentation.
+
+#### Python Bindings
+
+```python
+from sevenzip_ffi import SevenZip
+
+sz = SevenZip()
+
+# Extract archive
+sz.extract("archive.7z", "output_dir")
+
+# Create archive
+sz.compress("source_dir", "archive.7z", format="7z", level="maximum")
+
+# Get archive info
+info = sz.get_archive_info("archive.7z")
+print(f"Items: {info['item_count']}, Size: {info['total_size']}")
+```
+
+See [examples/python/](examples/python/) for comprehensive examples.
 
 #### Low-Level COM Wrapper API
 
@@ -210,14 +255,25 @@ This wrapper is distributed under the MIT License (pending - check LICENSE file)
 7-Zip library is licensed under GNU LGPL + unRAR restriction.
 See `third_party/7zip/License.txt` for details.
 
+## FAQ
+
+### Why doesn't libsevenzip provide standalone compression (GZIP/BZIP2/XZ)?
+
+libsevenzip focuses on **archive format handling** (7z, ZIP, TAR). For standalone data compression, we recommend using standard libraries which are:
+- More mature and battle-tested
+- Already available in all languages
+- Better integrated with language ecosystems
+- Simpler to use and maintain
+
+See [docs/Standalone_Compression_Guide.md](docs/Standalone_Compression_Guide.md) for examples in Python, C++, Go, Rust, C#, and Java.
+
 ## Contributing
 
 Contributions welcome! Priority areas:
 1. **Investigate password+files crash** - Deep dive into 7-Zip encoder to fix SEH exception
 2. **Cross-platform testing** - Linux, macOS support
-3. **C API layer implementation** - FFI interface for other languages
-4. **Streaming API** - For large files
-5. **Additional format support** - More archive types
+3. **Streaming API** - For large files
+4. **Additional format support** - More archive types
 
 ## Changelog
 
