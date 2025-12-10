@@ -1,211 +1,230 @@
-# libsevenzip - Modern FFI Library for 7-Zip
+# libsevenzip
 
-**Primary Goal**: Provide stable FFI bindings for Python, Rust, Go, Node.js and other languages.
+[![Build Status](https://github.com/yourusername/libsevenzip/workflows/Build%20FFI%20Multi-Architecture/badge.svg)](https://github.com/yourusername/libsevenzip/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![7-Zip SDK](https://img.shields.io/badge/7--Zip%20SDK-25.01-green.svg)](https://www.7-zip.org/sdk.html)
 
-**Secondary Goal**: Optional modern C++ API (if you need C++, consider using [bit7z](https://github.com/rikyoz/bit7z)).
+**A modern FFI (Foreign Function Interface) library for 7-Zip SDK, designed for cross-language integration.**
 
-## Quick Start
+[中文文档](README.zh-CN.md) | **English**
 
-### For FFI Users (Python/Rust/Go/etc.)
+---
 
-**Standard CMake build** (recommended):
-```bash
-# x64 build
-cmake -B build -G "Visual Studio 17 2022" -A x64
-cmake --build build --config Release
+## 🎯 Project Goals
 
-# x86 build
-cmake -B build_x86 -G "Visual Studio 17 2022" -A Win32
-cmake --build build_x86 --config Release
+### Primary Goal: FFI Bindings for Multiple Languages
 
-# Install FFI library
-cmake --install build --config Release --prefix ./install
-```
+This project's **main purpose** is to provide stable, easy-to-use FFI bindings (to be implemented in the future) for:
 
-**Multi-architecture build** (builds both x64 and x86):
-```bash
-cmake -B build_x64 -G "Visual Studio 17 2022" -A x64
-cmake -B build_x86 -G "Visual Studio 17 2022" -A Win32
+- 🐍 **Python**
+- 🦀 **Rust**
+- 🎯 **Dart**
+- 💎 **C#**
+- 🌐 Other languages supporting C FFI
 
-cmake --build build_x64 --config Release --target sevenzip_ffi
-cmake --build build_x86 --config Release --target sevenzip_ffi
+### Secondary Goal: Optional C++ API
 
-# Collect artifacts
-mkdir dist\x64 dist\x86
-copy build_x64\bin\Release\sevenzip_ffi.dll dist\x64\
-copy build_x86\bin\Release\sevenzip_ffi.dll dist\x86\
-```
+A modern C++ API is provided for those who need it, but:
 
-**Output**:
-```
-build/bin/Release/sevenzip_ffi.dll    # FFI library (x64 or x86)
-include/sevenzip/sevenzip_capi.h      # C API header
-```
+⚠️ **Important Notices for C++ Users:**
+- **Windows-only**: Due to current implementation using Windows SDK COM interfaces, cross-platform support is not available
+- **Not fully tested**: The C++ API has not undergone comprehensive testing
+- **Recommended alternative**: If you need a mature C++ 7-Zip library, we recommend **[bit7z](https://github.com/rikyoz/bit7z)** instead
 
-### For C++ Users (Optional)
+The C++ API is maintained primarily as an internal dependency for FFI implementation.
 
-If you need C++ API, enable it explicitly:
+---
 
-```bash
-cmake -B build -G "Visual Studio 17 2022" -A x64 -DSEVENZIP_BUILD_CPP_API=ON
-cmake --build build --config Release
-```
+## 📦 Installation
 
-**Note**: For production C++ usage, we recommend [bit7z](https://github.com/rikyoz/bit7z) which is more mature.
+### Pre-built Binaries (FFI)
 
-## CMake Options
+Download pre-built DLLs from Releases.
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `SEVENZIP_BUILD_FFI` | `ON` | Build FFI library (primary target) |
-| `SEVENZIP_BUILD_CPP_API` | `OFF` | Build modern C++ API (optional) |
-| `SEVENZIP_BUILD_EXAMPLES` | `OFF` | Build example programs |
-| `SEVENZIP_BUILD_TESTS` | `OFF` | Build unit tests |
-| `SEVENZIP_ENABLE_INSTALL` | `OFF` | Enable CMake package config (for vcpkg/Conan) |
+### Language-Specific Packages (Coming Soon)
 
-## Usage Examples
+---
 
-### Python (ctypes)
+## 🚀 Quick Start
 
+### For FFI Users (Python/Rust/Dart/C#)
+
+**Python Example:**
 ```python
 import ctypes
-import platform
 
-# Auto-detect architecture
-arch = "x64" if platform.machine().endswith("64") else "x86"
-lib = ctypes.CDLL(f"sevenzip_ffi_{arch}.dll")
+# Load the DLL
+lib = ctypes.CDLL("sevenzip_ffi.dll")
 
-# Get version
-lib.sz_version_string.restype = ctypes.c_char_p
-print(lib.sz_version_string().decode())
+# Extract archive
+result = lib.sz_extract_simple(b"archive.7z", b"output/")
+if result != 0:  # SZ_OK = 0
+    print("Extraction failed")
 ```
 
-### Rust (libloading)
-
+**Rust Example:**
 ```rust
 use libloading::{Library, Symbol};
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let arch = if cfg!(target_pointer_width = "64") { "x64" } else { "x86" };
-    let lib = unsafe { Library::new(format!("sevenzip_ffi_{}.dll", arch))? };
+unsafe {
+    let lib = Library::new("sevenzip_ffi.dll")?;
+    let extract: Symbol<unsafe extern fn(*const u8, *const u8) -> i32> 
+        = lib.get(b"sz_extract_simple\\0")?;
     
-    unsafe {
-        let version: Symbol<unsafe extern fn() -> *const i8> = 
-            lib.get(b"sz_version_string")?;
-        println!("{:?}", std::ffi::CStr::from_ptr(version()));
+    let result = extract(b"archive.7z\\0".as_ptr(), b"output/\\0".as_ptr());
+    if result != 0 {
+        eprintln!("Extraction failed");
     }
-    Ok(())
 }
 ```
 
-### Go (cgo)
+📚 **Full API Documentation**: See [`docs/API_Reference.md`](docs/API_Reference.md)
 
-```go
-package main
+---
 
-/*
-#cgo CFLAGS: -I./include
-#cgo windows,amd64 LDFLAGS: -L./x64 -lsevenzip_ffi
-#cgo windows,386 LDFLAGS: -L./x86 -lsevenzip_ffi
-#include <sevenzip/sevenzip_capi.h>
-*/
-import "C"
-import "fmt"
+## 🛠️ Building from Source
 
-func main() {
-    version := C.GoString(C.sz_version_string())
-    fmt.Println("Version:", version)
-}
-```
+### Prerequisites
 
-## Project Structure
+- **Windows 10/11** (Windows SDK 10.0.19041.0, other versions not verified, Win11 SDK known to be unsupported)
+- **Visual Studio 2022** (or Build Tools with MSVC 14.4+)
+- **CMake 3.20+**
 
-```
-libsevenzip/
-├── include/sevenzip/          # Public headers
-│   └── sevenzip_capi.h        # C API (FFI)
-├── src/
-│   ├── ffi/                   # FFI implementation (PRIMARY)
-│   ├── wrapper/               # COM wrapper (internal)
-│   └── api/                   # C++ API (optional)
-├── third_party/7zip/          # 7-Zip source code
-├── examples/                  # Usage examples
-├── tests/                     # Unit tests
-└── CMakeLists.txt             # Simple, focused build
-```
-
-## Building for Distribution
-
-### Multi-Architecture Distribution
+### Standard CMake Build
 
 ```bash
-# Build both architectures
-cmake -B build_x64 -A x64
-cmake -B build_x86 -A Win32
-cmake --build build_x64 --config Release --target sevenzip_ffi
+# x64 build (64-bit)
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release --target sevenzip_ffi
+
+# x86 build (32-bit)
+cmake -B build_x86 -G "Visual Studio 17 2022" -A Win32
 cmake --build build_x86 --config Release --target sevenzip_ffi
 
-# Create distribution package
-mkdir ffi_dist\x64 ffi_dist\x86 ffi_dist\include\sevenzip
-copy build_x64\bin\Release\sevenzip_ffi.dll ffi_dist\x64\
-copy build_x86\bin\Release\sevenzip_ffi.dll ffi_dist\x86\
-copy include\sevenzip\sevenzip_capi.h ffi_dist\include\sevenzip\
-
-# Create archive
-tar -czf sevenzip_ffi_v0.1.0_windows.tar.gz ffi_dist
+# Output: build/bin/Release/sevenzip_ffi.dll
 ```
 
-### Single Architecture (Simpler)
+### Build Both Architectures
 
 ```bash
-# Most users only need x64
-cmake -B build -A x64
-cmake --build build --config Release
-cmake --install build --prefix ./dist
+# Configure
+cmake -B build_x64 -G "Visual Studio 17 2022" -A x64
+cmake -B build_x86 -G "Visual Studio 17 2022" -A Win32
+
+# Build
+cmake --build build_x64 --config Release --target sevenzip_ffi --parallel
+cmake --build build_x86 --config Release --target sevenzip_ffi --parallel
+
+# Collect artifacts
+mkdir dist\\x64 dist\\x86
+copy build_x64\\bin\\Release\\sevenzip_ffi.dll dist\\x64\\
+copy build_x86\\bin\\Release\\sevenzip_ffi.dll dist\\x86\\
+copy include\\sevenzip\\sevenzip_capi.h dist\\include\\sevenzip\\
 ```
 
-## Why This Project?
+### Optional: Build C++ API
 
-**Primary Use Case**: FFI bindings for modern languages
-- Python packages (via ctypes/cffi)
-- Rust crates (via bindgen)
-- Go modules (via cgo)
-- Node.js packages (via ffi-napi)
+```bash
+cmake -B build -G "Visual Studio 17 2022" -A x64 \\
+  -DSEVENZIP_BUILD_CPP_API=ON \\
+  -DSEVENZIP_BUILD_EXAMPLES=ON
 
-**Not a C++ Library**: For C++ usage, we recommend [bit7z](https://github.com/rikyoz/bit7z)
+cmake --build build --config Release
+```
 
-## Differences from bit7z
+⚠️ **Remember**: C++ API is Windows-only and not fully tested.
 
-| Feature | libsevenzip | bit7z |
-|---------|-------------|-------|
-| **Primary Goal** | FFI for other languages | Modern C++ API |
-| **API** | C ABI (stable) | C++ (classes/templates) |
-| **Target Users** | Python/Rust/Go/Node.js | C++ applications |
-| **Maturity** | New (v0.1.0) | Mature production-ready |
-| **Recommendation** | Use for language bindings | Use for C++ projects |
+---
 
-## Documentation
+## 📋 Features
 
-- [CMake Installation Guide](docs/CMAKE_INSTALL.md) - For C++ integration
-- [FFI Distribution Guide](docs/FFI_DISTRIBUTION.md) - For language bindings
-- [C API Reference](docs/Part6_FFI_Design.md) - FFI function documentation
-- [Architecture](docs/Part2_Architecture_Analysis.md) - Technical design
+### Current FFI API Status
 
-## License
+✅ **Implemented:**
+- Version information (`sz_get_version`)
+- Error handling (`sz_get_error_message`, `sz_get_last_error`)
+- Archive reading (open, list files, extract)
+- Archive writing (create 7z/zip/tar archives)
+- Basic compression/decompression
 
-- **libsevenzip**: MIT License
-- **7-Zip**: LGPL 2.1+ with unRAR restriction
+📝 **Planned Features:**
+- Advanced compression options
+- Password-protected archives (full support)
+- Solid archives configuration
+- Multi-volume archives
+- Archive updates (add/remove files)
 
-See [LICENSE](LICENSE) for details.
+*Note: Detailed feature roadmap is maintained in `docs/FFI_TODO.md` (private development document, not publicly tracked).*
 
-## Contributing
+### Supported Formats
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
+| Format | Read | Write | Notes |
+|--------|------|-------|-------|
+| 7z     | ✅   | ✅    | Full support |
+| Zip    | ✅   | ✅    | Full support |
+| Tar    | ✅   | ✅    | Full support |
+| Gzip   | ✅   | ✅    | `.gz` files |
+| Bzip2  | ✅   | ✅    | `.bz2` files |
+| Xz     | ✅   | ✅    | Full support |
+| Rar    | ✅   | ❌    | Read-only (proprietary) |
+| Rar5   | ✅   | ❌    | Read-only (proprietary) |
 
-## Alternatives
+---
 
-- **For C++ projects**: Use [bit7z](https://github.com/rikyoz/bit7z) (recommended)
-- **For Python**: [py7zr](https://github.com/miurahr/py7zr) (pure Python)
-- **For Node.js**: [node-7z](https://github.com/quentinrossetti/node-7z) (CLI wrapper)
+## 📚 Documentation
 
-libsevenzip fills the gap for stable FFI bindings across multiple languages.
+- **[API Reference](Document/API_Reference.md)** - Complete C API documentation
+- **[API Reference (中文)](Document/API_Reference.zh-CN.md)** - 完整的 C API 文档
+- **[Contributing](CONTRIBUTING.md)** - How to contribute
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Areas Needing Help
+
+- 🐍 **Python package**
+- 🦀 **Rust crate**
+- 🎯 **Dart package**
+- 💎 **C# package**
+- 📖 Documentation improvements
+- 🧪 FFI API testing
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
+
+### Third-Party Licenses
+
+- **7-Zip SDK**: Public Domain + GNU LGPL (unRAR code)
+  - License: https://www.7-zip.org/license.txt
+  - Version: 25.01
+
+---
+
+## 🔗 Related Projects
+
+- **[7-Zip](https://www.7-zip.org/)** - Original 7-Zip archiver
+- **[bit7z](https://github.com/rikyoz/bit7z)** - Recommended C++ library for 7-Zip
+
+---
+
+## 📞 Contact & Support
+
+- **Issues**: [GitHub Issues](https://github.com/yourusername/libsevenzip/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/libsevenzip/discussions)
+
+---
+
+## 🏗️ Project Status
+
+- **Version**: 0.1.0 (Alpha)
+- **Status**: Active Development
+- **Platform**: Windows only (due to Windows SDK COM dependency)
+- **Target Audience**: FFI users (Python, Rust, Dart, C#)
+
+**Note**: This is an early-stage project. APIs may change before v1.0.0 release.

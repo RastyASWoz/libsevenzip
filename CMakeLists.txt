@@ -6,19 +6,45 @@ cmake_minimum_required(VERSION 3.20)
 project(libsevenzip VERSION 0.1.0 LANGUAGES C CXX)
 
 message(STATUS "========================================")
-message(STATUS "  libsevenzip - Modern FFI for 7-Zip")
+message(STATUS "  libsevenzip - FFI Library for 7-Zip")
 message(STATUS "  Version: ${PROJECT_VERSION}")
+message(STATUS "  Purpose: FFI for Python/Rust/Dart/C#")
+message(STATUS "  Platform: Windows Only (COM Dependency)")
 message(STATUS "========================================")
 
 # ============================================
 # 平台检测
 # ============================================
 if(NOT WIN32)
-    message(FATAL_ERROR "This project currently only supports Windows platform")
+    message(FATAL_ERROR "\n"
+        "===============================================\n"
+        " Platform Limitation: Windows Only\n"
+        "===============================================\n"
+        "This project currently only supports Windows platform due to:\n"
+        "  - Windows SDK COM interface dependency\n"
+        "  - 7-Zip SDK's Windows-specific implementations\n"
+        "\n"
+        "For cross-platform 7-Zip support, consider:\n"
+        "  - p7zip (https://github.com/jinfeihan57/p7zip)\n"
+        "  - bit7z (C++ library, Windows/Linux)\n"
+        "===============================================\n"
+    )
 endif()
 
 if(NOT MSVC)
-    message(FATAL_ERROR "This project currently only supports MSVC compiler")
+    message(FATAL_ERROR "\n"
+        "===============================================\n"
+        " Compiler Limitation: MSVC Required\n"
+        "===============================================\n"
+        "This project requires MSVC (Microsoft Visual C++) due to:\n"
+        "  - Windows SDK headers and COM interfaces\n"
+        "  - __stdcall calling conventions on x86\n"
+        "  - MSVC-specific pragmas in 7-Zip SDK\n"
+        "\n"
+        "Supported: Visual Studio 2022 (MSVC 14.4+)\n"
+        "Recommended: Visual Studio 17.12 or later\n"
+        "===============================================\n"
+    )
 endif()
 
 # 检测架构
@@ -28,6 +54,16 @@ if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 else()
     set(SEVENZIP_ARCH "x86")
     message(STATUS "Target Architecture: x86 (32-bit)")
+    message(WARNING "\n"
+        "===============================================\n"
+        " x86 (32-bit) Build Notes:\n"
+        "===============================================\n"
+        "  - Large file support (>4GB) may be limited\n"
+        "  - Different calling conventions (__stdcall)\n"
+        "  - Recommended for compatibility only\n"
+        "  - For production, prefer x64 builds\n"
+        "===============================================\n"
+    )
 endif()
 
 # ============================================
