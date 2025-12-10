@@ -175,28 +175,8 @@ cmake --build build --config Release
 
 - **[API Reference](Document/API_Reference.md)** - Complete C API documentation
 - **[API Reference (中文)](Document/API_Reference.zh-CN.md)** - 完整的 C API 文档
-- **[Contributing](CONTRIBUTING.md)** - How to contribute
 
 ---
-
-## 🤝 Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Areas Needing Help
-
-- 🐍 **Python package**
-- 🦀 **Rust crate**
-- 🎯 **Dart package**
-- 💎 **C# package**
-- 📖 Documentation improvements
-- 🧪 FFI API testing
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ### Third-Party Licenses
 
@@ -210,13 +190,6 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 - **[7-Zip](https://www.7-zip.org/)** - Original 7-Zip archiver
 - **[bit7z](https://github.com/rikyoz/bit7z)** - Recommended C++ library for 7-Zip
-
----
-
-## 📞 Contact & Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/libsevenzip/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/libsevenzip/discussions)
 
 ---
 
