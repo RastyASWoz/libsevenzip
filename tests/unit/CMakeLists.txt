@@ -1,7 +1,14 @@
 # Unit tests for sevenzip wrapper
 
 # Find Google Test (vcpkg installed)
-find_package(GTest CONFIG REQUIRED)
+# Make it optional so build doesn't fail if GTest is not installed
+find_package(GTest CONFIG)
+
+if(NOT GTest_FOUND)
+    message(WARNING "Google Test not found. Unit tests will not be built.")
+    message(WARNING "To install GTest: vcpkg install gtest:x64-windows")
+    return()
+endif()
 
 # Create test executable
 add_executable(wrapper_unit_tests

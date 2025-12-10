@@ -1,0 +1,32 @@
+# SevenZip CMake Configuration File
+# This file helps other CMake projects find and use SevenZip library
+
+@PACKAGE_INIT@
+
+# Define import targets
+include("${CMAKE_CURRENT_LIST_DIR}/SevenZipTargets.cmake")
+
+# Set variables for compatibility
+set(SevenZip_FOUND TRUE)
+set(SevenZip_VERSION @PROJECT_VERSION@)
+set(SevenZip_INCLUDE_DIRS "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set(SevenZip_LIBRARY_DIRS "@PACKAGE_CMAKE_INSTALL_LIBDIR@")
+
+# Define library targets
+if(NOT TARGET SevenZip::sevenzip)
+    message(FATAL_ERROR "SevenZip targets not found")
+endif()
+
+# Legacy variables for backward compatibility
+set(SevenZip_LIBRARIES SevenZip::sevenzip)
+set(SevenZip_INCLUDE_DIR ${SevenZip_INCLUDE_DIRS})
+
+# Check required components
+check_required_components(SevenZip)
+
+# Print status message
+if(NOT SevenZip_FIND_QUIETLY)
+    message(STATUS "Found SevenZip: ${SevenZip_VERSION}")
+    message(STATUS "  Include dirs: ${SevenZip_INCLUDE_DIRS}")
+    message(STATUS "  Library dirs: ${SevenZip_LIBRARY_DIRS}")
+endif()

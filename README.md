@@ -30,13 +30,31 @@ A cross-platform, modern C++ wrapper around the 7-Zip library, providing a clean
 
 ## Quick Start
 
+### Requirements
+
+**Platform**: Windows 10/11 (64-bit)  
+**Compiler**: MSVC 2022 (Visual Studio 17)  
+**Windows SDK**: 10.0.19041.0 or newer (automatically detected)
+
+**Supported Windows SDK Versions** (in priority order):
+- ✅ 10.0.19041.0 (Windows 10 2004) - **Recommended, fully tested**
+- ✅ 10.0.22000.0 (Windows 11 21H2) - Backward compatible
+- ✅ 10.0.22621.0 (Windows 11 22H2) - Backward compatible  
+- ⚠️ 10.0.26100.0 (Windows 11 24H2) - May have COM compatibility issues
+
+CMake will automatically select the best available SDK. If none found, install [Windows SDK 10.0.19041.0](https://developer.microsoft.com/windows/downloads/sdk-archive/).
+
 ### Building
 
 ```bash
-cd build/windows-debug
-cmake ../.. -G "Visual Studio 17 2022"
-cmake --build . --config Release
-ctest -C Release
+# CMake will auto-detect compatible Windows SDK
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release
+
+# Run tests (optional, requires GTest)
+cmake -B build -G "Visual Studio 17 2022" -A x64 -DSEVENZIP_BUILD_TESTS=ON
+cd build
+ctest -C Release --output-on-failure
 ```
 
 ### Basic Usage

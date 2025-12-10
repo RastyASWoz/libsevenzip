@@ -27,15 +27,13 @@ add_executable(example_basic_usage
 
 target_link_libraries(example_basic_usage
     PRIVATE
-        sevenzip_ffi
+        sevenzip  # Use static library instead to avoid DLL dependency issues
 )
 
 target_include_directories(example_basic_usage
     PRIVATE
         ${CMAKE_SOURCE_DIR}/include
 )
-
-target_compile_definitions(example_basic_usage PRIVATE SEVENZIP_STATIC)
 
 # Install examples
 install(TARGETS convenience_demo example_basic_usage

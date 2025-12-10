@@ -1,0 +1,14 @@
+# pkg-config file for SevenZip library
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+
+Name: SevenZip
+Description: Modern C++ wrapper for 7-Zip library
+URL: https://github.com/yourusername/libsevenzip
+Version: @PROJECT_VERSION@
+
+Requires:
+Libs: -L${libdir} -lsevenzip
+Cflags: -I${includedir}
