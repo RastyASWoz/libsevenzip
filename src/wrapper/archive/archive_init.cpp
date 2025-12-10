@@ -21,8 +21,12 @@ void ForceInitArchiveFormats() {
 
 }  // namespace
 
-// 前置声明CRC初始化函数
+// 前置声明CRC初始化函数 - 注意 __fastcall 调用约定
+#ifdef _WIN32
+extern "C" void __fastcall CrcGenerateTable(void);
+#else
 extern "C" void CrcGenerateTable(void);
+#endif
 
 // 导出一个初始化函数供外部调用（虽然目前不需要显式调用）
 extern "C" void InitializeArchiveFormats() {

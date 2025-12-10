@@ -20,13 +20,19 @@ add_library(sevenzip_ffi SHARED ${FFI_SOURCES} ${FFI_HEADERS})
 
 # Include directories
 target_include_directories(sevenzip_ffi PUBLIC
-    ${CMAKE_SOURCE_DIR}/include
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-# Link with modern C++ API and wrapper
+# Link with C++ API (required), wrapper and 7-Zip libraries
 target_link_libraries(sevenzip_ffi PUBLIC
     sevenzip_api
     sevenzip_wrapper
+    7zip_archive
+    7zip_codec
+    7zip_crypto
+    7zip_cpp
+    7zip_c
 )
 
 # Set C++ standard

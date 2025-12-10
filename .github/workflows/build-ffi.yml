@@ -1,0 +1,199 @@
+name: Build FFI Multi-Architecture
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/ffi/**'
+      - 'include/sevenzip/sevenzip_capi.h'
+      - 'CMakeLists.txt'
+      - 'src/CMakeLists.txt'
+      - '.github/workflows/build-ffi.yml'
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'Build configuration'
+        required: true
+        default: 'Release'
+        type: choice
+        options:
+          - Release
+          - Debug
+
+jobs:
+  build-ffi-windows:
+    name: Build FFI - Windows (${{ matrix.arch }})
+    runs-on: windows-2022
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, x86]
+        configuration: [Release]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Setup MSVC
+        uses: microsoft/setup-msbuild@v2
+      
+      - name: Configure CMake (${{ matrix.arch }})
+        run: |
+          cmake -B build `
+            -G "Visual Studio 17 2022" `
+            -A ${{ matrix.arch == 'x86' && 'Win32' || 'x64' }} `
+            -DCMAKE_BUILD_TYPE=${{ matrix.configuration }}
+      
+      - name: Build FFI library (${{ matrix.arch }})
+        run: |
+          cmake --build build `
+            --config ${{ matrix.configuration }} `
+            --target sevenzip_ffi `
+            --parallel 4
+      
+      - name: Collect artifacts (${{ matrix.arch }})
+        shell: powershell
+        run: |
+          $ArchName = "${{ matrix.arch }}"
+          if ($ArchName -eq "Win32") { $ArchName = "x86" }
+          
+          $ArtifactDir = "artifacts/$ArchName"
+          New-Item -ItemType Directory -Force -Path $ArtifactDir | Out-Null
+          
+          $BinDir = "build/bin/${{ matrix.configuration }}"
+          
+          # Copy DLL, PDB, LIB
+          Copy-Item "$BinDir/sevenzip_ffi.dll" $ArtifactDir -ErrorAction Stop
+          Copy-Item "$BinDir/sevenzip_ffi.pdb" $ArtifactDir -ErrorAction SilentlyContinue
+          Copy-Item "$BinDir/sevenzip_ffi.lib" $ArtifactDir -ErrorAction SilentlyContinue
+          
+          # Get file info
+          $DllInfo = Get-Item "$ArtifactDir/sevenzip_ffi.dll"
+          $DllHash = (Get-FileHash "$ArtifactDir/sevenzip_ffi.dll" -Algorithm SHA256).Hash
+          
+          Write-Host "::notice::Built $ArchName DLL: $($DllInfo.Length) bytes, SHA256: $DllHash"
+          
+          # Save metadata
+          @{
+              arch = $ArchName
+              size = $DllInfo.Length
+              sha256 = $DllHash
+          } | ConvertTo-Json | Out-File "$ArtifactDir/metadata.json"
+      
+      - name: Upload artifacts (${{ matrix.arch }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: sevenzip-ffi-windows-${{ matrix.arch }}-${{ matrix.configuration }}
+          path: artifacts/${{ matrix.arch == 'Win32' && 'x86' || matrix.arch }}/
+          retention-days: 30
+  
+  create-distribution:
+    name: Create FFI Distribution Package
+    needs: build-ffi-windows
+    runs-on: windows-2022
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download x64 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: sevenzip-ffi-windows-x64-Release
+          path: dist/x64
+      
+      - name: Download x86 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: sevenzip-ffi-windows-x86-Release
+          path: dist/x86
+      
+      - name: Copy headers
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "dist/include/sevenzip" | Out-Null
+          Copy-Item "include/sevenzip/sevenzip_capi.h" "dist/include/sevenzip/"
+      
+      - name: Generate distribution README
+        shell: powershell
+        run: |
+          $x64Meta = Get-Content "dist/x64/metadata.json" | ConvertFrom-Json
+          $x86Meta = Get-Content "dist/x86/metadata.json" | ConvertFrom-Json
+          
+          $Readme = @"
+          # SevenZip FFI Distribution
+          
+          **Version**: ${{ github.ref_name || 'development' }}
+          **Build Date**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+          **Commit**: ${{ github.sha }}
+          
+          ## Architectures
+          
+          ### x64
+          - Size: $([math]::Round($x64Meta.size / 1KB, 2)) KB
+          - SHA256: $($x64Meta.sha256)
+          
+          ### x86
+          - Size: $([math]::Round($x86Meta.size / 1KB, 2)) KB
+          - SHA256: $($x86Meta.sha256)
+          
+          ## Quick Start
+          
+          See [examples](https://github.com/your-repo/libsevenzip/tree/main/examples) for usage in:
+          - Python (ctypes, cffi)
+          - Rust (libloading)
+          - Go (cgo)
+          - Node.js (ffi-napi)
+          
+          ## Directory Structure
+          
+          ``````
+          dist/
+          ├── x64/
+          │   ├── sevenzip_ffi.dll
+          │   ├── sevenzip_ffi.pdb
+          │   └── sevenzip_ffi.lib
+          ├── x86/
+          │   ├── sevenzip_ffi.dll
+          │   ├── sevenzip_ffi.pdb
+          │   └── sevenzip_ffi.lib
+          └── include/
+              └── sevenzip/
+                  └── sevenzip_capi.h
+          ``````
+          "@
+          
+          Set-Content -Path "dist/README.md" -Value $Readme -Encoding UTF8
+      
+      - name: Create distribution archive
+        shell: powershell
+        run: |
+          $Version = "${{ github.ref_name || 'dev' }}".Replace('v', '')
+          $ArchiveName = "sevenzip_ffi_v${Version}_windows.zip"
+          
+          Compress-Archive -Path "dist/*" -DestinationPath $ArchiveName -CompressionLevel Optimal
+          
+          Write-Host "::notice::Created distribution: $ArchiveName"
+      
+      - name: Upload distribution package
+        uses: actions/upload-artifact@v4
+        with:
+          name: sevenzip-ffi-distribution
+          path: sevenzip_ffi_*.zip
+          retention-days: 90
+      
+      - name: Upload to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: sevenzip_ffi_*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

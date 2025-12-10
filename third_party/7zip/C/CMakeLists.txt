@@ -178,6 +178,11 @@ endif()
 # 禁用某些警告
 if(MSVC)
     target_compile_options(7zip_c PRIVATE /wd4100 /wd4244 /wd4267)
+    
+    # 修复 x86 调用约定: 32位Windows需要使用 __stdcall
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        target_compile_definitions(7zip_c PUBLIC _7ZIP_ST)
+    endif()
 else()
     target_compile_options(7zip_c PRIVATE 
         -Wno-unused-parameter 

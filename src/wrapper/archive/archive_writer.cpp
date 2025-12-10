@@ -18,7 +18,9 @@
 #include "update_callback.hpp"
 
 // External function from 7-Zip library
-extern "C" HRESULT CreateArchiver(const GUID* clsid, const GUID* iid, void** outObject);
+extern "C" {
+STDAPI CreateArchiver(const GUID* clsid, const GUID* iid, void** outObject);
+}
 
 namespace sevenzip::detail {
 
